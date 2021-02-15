@@ -152,7 +152,7 @@ public T removeEntry(int givenIndex)
 }
 
 @Override
-public TT union(BagInterface<T> otherBag) {
+public T union(BagInterface<T> otherBag) {
     // TODO Auto-generated method stub
     return null;
 }

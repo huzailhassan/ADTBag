@@ -17,5 +17,5 @@ public interface BagInterface<T>  {
     public boolean isFull();
     public int getIndexOf(T anEntry);
 
-    public T union(BagInterface<T> otherBag)；
+    public T union(BagInterface<T> otherBag);
 } 

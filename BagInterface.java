@@ -3,7 +3,6 @@ import javax.swing.plaf.basic.BasicTreeUI.TreeToggleAction;
 public interface BagInterface<T>  {
 
     public void checkIntegrity();
-    public void ArrayBag(int desiredCapacity);
 
     public int getCurrentSize();
 
@@ -16,6 +15,13 @@ public interface BagInterface<T>  {
     public T[] toArray();
     public boolean isFull();
     public int getIndexOf(T anEntry);
+    public int getFrequencyOf(T anEntry);
 
-    public T union(BagInterface<T> otherBag);
+    
+    public BagInterface<T> union(BagInterface<T> otherBag);
+    
+    public BagInterface<T> difference(BagInterface<T> otherBag);
+    
+    public BagInterface<T> intersection(BagInterface<T> otherBag);
+    
 } 

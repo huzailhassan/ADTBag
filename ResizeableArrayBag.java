@@ -140,19 +140,17 @@ public class ResizeableArrayBag<T> implements BagInterface<T> {
     }
     
     public BagInterface<T> difference(BagInterface<T> sBag) {
-        ResizeableArrayBag<T> secondBag = (ResizeableArrayBag<T>)sBag;
-        BagInterface<T> firstBag = new ResizeableArrayBag<>();
+        T[] secondBag = sBag.toArray();
+        BagInterface<T> firstBag = new ResizeableArrayBag<>(bag.length);
         
         int i;
-        
-        firstBag.ArrayBag(bag.length);
         
         for (i = 0; i < numberOfEntries; i++)
             firstBag.add(bag[i]);
         
-        for (i = 0; i < secondBag.getCurrentSize(); i++) {
-            if (firstBag.contains(secondBag.bag[i]))
-                firstBag.remove(secondBag.bag[i]);
+        for (i = 0; i < secondBag.length; i++) {
+            if (firstBag.contains(secondBag[i]))
+                firstBag.remove(secondBag[i]);
         }
         
         return firstBag;

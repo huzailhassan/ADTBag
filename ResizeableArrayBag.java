@@ -157,14 +157,24 @@ public T union(BagInterface<T> otherBag) {
     return null;
 }
 
+public BagInterface<T> difference(BagInterface<T> sBag) {
+    ResizeableArrayBag<T> secondBag = (ResizeableArrayBag<T>)sBag;
+    BagInterface<T> firstBag = new ResizeableArrayBag<>();
 
+    int i;
 
+    firstBag.ArrayBag(bag.length);
 
-//NOTE FOR TOMMOROW: WHHICH ONE OF THESE DO I USE????
-// https://pastebin.com/SeZLSnAg
-//EROR in this file FROM union(T anotherBag) not being implented btw if you decide to be retarded tomorrow
-//WTF A NAME CLASH??
+    for (i = 0; i < numberOfEntries; i++)
+        firstBag.add(bag[i]);
 
+    for (i = 0; i < secondBag.getCurrentSize(); i++) {
+        if (firstBag.contains(secondBag.bag[i]))
+            firstBag.remove(secondBag.bag[i]);
+    }
+
+    return firstBag;
+}
 
 }
 

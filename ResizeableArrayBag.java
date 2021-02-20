@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class ResizeableArrayBag<T> implements BagInterface<T> {
     
     private T[] bag;
@@ -14,7 +16,7 @@ public class ResizeableArrayBag<T> implements BagInterface<T> {
             numberOfEntries = 0;
             integrityOK = true;
         } else {
-            throw new IllegalStateException("Attempt to create a bag whose" + "capacity exceeds allowed maximum.");
+            throw new IllegalStateException("Attempt to create a bag whose capacity exceeds allowed maximum.");
         }
         
     }
@@ -42,15 +44,14 @@ public class ResizeableArrayBag<T> implements BagInterface<T> {
         checkIntegrity();
         boolean result = true;
         if (isFull()) {
-            result = false;
-        } else {
-            bag[numberOfEntries] = newEntry;
-            numberOfEntries++;
-        }
+            doubleCapacity();
+        } // end if
         
-        return result;
+        bag[numberOfEntries] = newEntry;
+        numberOfEntries++;
+        
+        return true;
     }
-    
     
     public T remove() {
         checkIntegrity();
@@ -70,30 +71,20 @@ public class ResizeableArrayBag<T> implements BagInterface<T> {
             remove();
     }
     
-    public int getFrequencyOf(T anEntry) {
-        checkIntegrity();
-        int counter = 0;
-        
-        for (int index = 0; index < numberOfEntries; index++) {
-            if (anEntry.equals(bag[index])) {
-                counter++;
-            }
-        }
-        return counter;
+    private void checkCapacity(int capacity) {
+        if (capacity > MAX_CAPACITY)
+            throw new IllegalStateException("Attempt to create a bag whose capacity exceeds allowed maximum of " + MAX_CAPACITY);
+    }
+    
+    private void doubleCapacity() {
+        int newLength = 2 * bag.length;
+        checkCapacity(newLength);
+        bag = Arrays.copyOf(bag, newLength);
     }
     
     public boolean contains(T anEntry) {
         checkIntegrity();
         return getIndexOf(anEntry) > -1; // or >= 0
-    }
-    
-    public T[] toArray() {
-        @SuppressWarnings("unchecked")
-        T[] result = (T[]) new Object[numberOfEntries];
-        for (int index = 0; index < numberOfEntries; index++) {
-            result[index] = bag[index];
-        }
-        return result;
     }
     
     public int getIndexOf(T anEntry) {
@@ -113,6 +104,28 @@ public class ResizeableArrayBag<T> implements BagInterface<T> {
         // equals bag[where]; otherwise, anEntry is not in the array
         
         return where;
+    }
+    
+    public int getFrequencyOf(T anEntry) {
+        checkIntegrity();
+        int counter = 0;
+        
+        for (int index = 0; index < numberOfEntries; index++) {
+            if (anEntry.equals(bag[index])) {
+                counter++;
+            }
+        }
+        return counter;
+    }
+    
+    public T[] toArray() {
+        @SuppressWarnings("unchecked")
+        T[] result = (T[]) new Object[numberOfEntries];
+        // Could replace with System.arraycopy() (faster)
+        for (int index = 0; index < numberOfEntries; index++) {
+            result[index] = bag[index];
+        }
+        return result;
     }
     
     public T removeEntry(int givenIndex) {
@@ -139,18 +152,17 @@ public class ResizeableArrayBag<T> implements BagInterface<T> {
         return newBag;
     }
     
-    public BagInterface<T> difference(BagInterface<T> sBag) {
-        T[] secondBag = sBag.toArray();
+    public BagInterface<T> difference(BagInterface<T> otherBag) {
+        T[] secondBag = otherBag.toArray();
         BagInterface<T> firstBag = new ResizeableArrayBag<>(bag.length);
         
-        int i;
-        
-        for (i = 0; i < numberOfEntries; i++)
+        for (int i = 0; i < numberOfEntries; i++)
             firstBag.add(bag[i]);
-        
-        for (i = 0; i < secondBag.length; i++) {
-            if (firstBag.contains(secondBag[i]))
-                firstBag.remove(secondBag[i]);
+    
+        for (T t : secondBag) {
+            if (firstBag.contains(t)) {
+                firstBag.remove(t);
+            }
         }
         
         return firstBag;
@@ -164,13 +176,13 @@ public class ResizeableArrayBag<T> implements BagInterface<T> {
             int freq = getFrequencyOf(elem);
             int otherFreq = otherBag.getFrequencyOf(elem);
             int bagFreq = newBag.getFrequencyOf(elem);
-            if(Math.min(freq, otherFreq)-bagFreq > 0){
+            if (Math.min(freq, otherFreq) - bagFreq > 0) {
                 newBag.add(elem);
             }
         }
         return newBag;
     }
-
-
+    
+    
 }
 

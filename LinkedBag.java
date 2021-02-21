@@ -167,6 +167,7 @@ public class LinkedBag<T> implements BagInterface<T> {
         return newBag;
     }
     
+    //Credit to https://www.geeksforgeeks.org/overriding-equals-method-in-java/
     @Override
     public boolean equals(Object o) {
         

@@ -127,7 +127,6 @@ public class ResizeableArrayBag<T> implements BagInterface<T> {
         }
         return result;
     }
-    
     public T removeEntry(int givenIndex) {
         T result = null;
         

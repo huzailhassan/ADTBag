@@ -167,5 +167,29 @@ public class LinkedBag<T> implements BagInterface<T> {
         return newBag;
     }
     
-    
+    @Override
+    public boolean equals(Object o) {
+        
+        // If the object is compared with itself then return true   
+        if (o == this) {
+            return true;
+        } 
+  
+        /* Check if o is an instance of Complex or not 
+          "null instanceof [type]" also returns false */
+        if (!(o instanceof BagInterface)) {
+            return false;
+        }
+        
+        // typecast o to Complex so that we can compare data members  
+        BagInterface<T> bag2 = (BagInterface<T>) o;
+        
+        if(bag2.getCurrentSize() != getCurrentSize()){
+            return false;
+        }
+        
+        return difference(bag2).getCurrentSize() == 0;
+        
+    }
+
 }

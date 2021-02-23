@@ -143,8 +143,8 @@ public class LinkedBag<T> implements BagInterface<T> {
     
     @Override
     public BagInterface<T> difference(BagInterface<T> otherBag) {
-        T[] secondBag = otherBag.toArray();
         BagInterface<T> firstBag = new LinkedBag<>();
+        T[] secondBag = otherBag.toArray();
         
         Node<T> currentNode = firstNode;
         while (currentNode != null) {

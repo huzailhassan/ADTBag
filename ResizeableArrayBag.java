@@ -102,8 +102,8 @@ public class ResizeableArrayBag<T> implements BagInterface<T> {
     }
     
     /**
-     * Helper method to remove entry by internal array index and then shift the
-     * remaining entries to compensate.
+     * Helper method to remove entry by internal array index. Moves last element
+     * in array to position previously occupied by the removed entry
      *
      * @param givenIndex Index to remove entry at
      * @return The entry that was removed
@@ -222,8 +222,8 @@ public class ResizeableArrayBag<T> implements BagInterface<T> {
     
     @Override
     public BagInterface<T> difference(BagInterface<T> otherBag) {
-        T[] secondBag = otherBag.toArray();
         BagInterface<T> firstBag = new ResizeableArrayBag<>(bag.length);
+        T[] secondBag = otherBag.toArray();
         
         for (int i = 0; i < numberOfEntries; i++) {
             firstBag.add(bag[i]);

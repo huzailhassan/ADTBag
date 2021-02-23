@@ -1,8 +1,15 @@
+/**
+ * {@inheritDoc}
+ * Implementation of {@link BagInterface} that uses a linked data-structure internally to store data.
+ */
 public class LinkedBag<T> implements BagInterface<T> {
     
     private Node<T> firstNode;
     private int numberOfEntries;
     
+    /**
+     * Instantiated the LinkedBag.
+     */
     public LinkedBag() {
         firstNode = null;
         numberOfEntries = 0;
@@ -74,6 +81,11 @@ public class LinkedBag<T> implements BagInterface<T> {
         return found;
     }
     
+    /**
+     * Helper method to
+     * @param anEntry
+     * @return
+     */
     private Node<T> getReferenceTo(T anEntry) {
         boolean found = false;
         Node<T> currentNode = firstNode;
@@ -115,6 +127,7 @@ public class LinkedBag<T> implements BagInterface<T> {
         return result;
     }
     
+    @Override
     public BagInterface<T> union(BagInterface<T> otherBag) {
         BagInterface<T> newBag = new LinkedBag<>();
         Node<T> currentNode = firstNode;
@@ -128,6 +141,7 @@ public class LinkedBag<T> implements BagInterface<T> {
         return newBag;
     }
     
+    @Override
     public BagInterface<T> difference(BagInterface<T> otherBag) {
         T[] secondBag = otherBag.toArray();
         BagInterface<T> firstBag = new LinkedBag<>();
@@ -147,9 +161,9 @@ public class LinkedBag<T> implements BagInterface<T> {
         return firstBag;
     }
     
+    @Override
     public BagInterface<T> intersection(BagInterface<T> otherBag) {
-        // large enough to avoid a resize under all cases
-        BagInterface<T> newBag = new LinkedBag<T>();
+        BagInterface<T> newBag = new LinkedBag<>();
     
         Node<T> currentNode = firstNode;
         while (currentNode != null) {
@@ -167,22 +181,23 @@ public class LinkedBag<T> implements BagInterface<T> {
         return newBag;
     }
     
-    //Credit to https://www.geeksforgeeks.org/overriding-equals-method-in-java/
+    // Credit to https://www.geeksforgeeks.org/overriding-equals-method-in-java/
     @Override
     public boolean equals(Object o) {
         
         // If the object is compared with itself then return true   
         if (o == this) {
             return true;
-        } 
+        }
   
-        /* Check if o is an instance of Complex or not 
-          "null instanceof [type]" also returns false */
+        // Check if o is an instance of BagInterface or not
+        // "null instanceof [type]" also returns false, so this also works as
+        // a null check
         if (!(o instanceof BagInterface)) {
             return false;
         }
         
-        // typecast o to Complex so that we can compare data members  
+        // typecast o to BagInterface so that we can compare data members
         BagInterface<T> bag2 = (BagInterface<T>) o;
         
         if(bag2.getCurrentSize() != getCurrentSize()){
@@ -190,7 +205,6 @@ public class LinkedBag<T> implements BagInterface<T> {
         }
         
         return difference(bag2).getCurrentSize() == 0;
-        
     }
 
 }

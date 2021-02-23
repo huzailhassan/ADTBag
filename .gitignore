@@ -1,4 +1,7 @@
-/out/
-/.idea/
-*.class
+#/out/
+.idea/
+#*.class
 /ADTBag.iml
+/out/production/ADTBag/.vscode/
+/out/production/ADTBag/lib/
+/out/production/ADTBag/ADTBag.iml

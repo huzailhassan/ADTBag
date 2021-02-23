@@ -2,12 +2,16 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
 import org.junit.jupiter.api.Test;
 
+/**
+ * Test class for {@link ResizeableArrayBag}. Uses JUnit5 for testing.
+ */
 public class ArrayBagTest {
     
     public static final String[] TEST_STRING_ARRAY_1 = {"a", "b", "c", "d", "e"};
     public static final String[] TEST_STRING_ARRAY_2 = {"F", "G", "H", "I", "J"};
     
-    public static void main(String[] args) {  
+    public static void main(String[] args) {
+        System.out.println("Using JUnit5 for testing. See repository readme for details on how to run tests.");
     }
     
     @Test

@@ -1,3 +1,8 @@
+/**
+ * Helper class to store linked data for {@link LinkedBag}.
+ *
+ * @param <T> The type of object to store in the node.
+ */
 class Node<T> {
     
     private T data;

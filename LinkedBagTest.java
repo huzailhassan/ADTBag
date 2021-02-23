@@ -2,12 +2,16 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
+/**
+ * Test class for {@link LinkedBag}. Uses JUnit5 for testing.
+ */
 public class LinkedBagTest {
     
     public static final String[] TEST_STRING_ARRAY_1 = {"a", "b", "c", "d", "e"};
     public static final String[] TEST_STRING_ARRAY_2 = {"F", "G", "H", "I", "J"};
     
     public static void main(String[] args) {
+        System.out.println("Using JUnit5 for testing. See repository readme for details on how to run tests.");
     }
 
     @Test
